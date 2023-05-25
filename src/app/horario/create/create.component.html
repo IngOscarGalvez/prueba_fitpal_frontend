@@ -1,0 +1,72 @@
+<div>
+
+  <div class="d-flex justify-content-between">
+    <h4>Crear Horario</h4>
+    <a href="#" routerLink="/clase/index" class="btn btn-primary">Atras</a>
+  </div>
+
+  <hr/>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+
+        <div class="form-group row">
+            <div class="col-md-6 ">
+              <label for="title">Clase:</label>
+              <select
+                formControlName="clase_id"
+                id="clase_id"
+                type="text"
+                class="form-control">
+                <option value="">Seleccione Uno</option>
+                <option *ngFor="let opcion of opciones" [value]="opcion.id">{{ opcion.nombre }}</option>
+              </select>
+              <div *ngIf="f.clase_id.touched && f.clase_id.invalid" class="alert alert-danger">
+                  <div *ngIf="f.clase_id.errors.required">*Clase es requerido.</div>
+              </div>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-md-6 ">
+              <label for="title">Fecha:</label>
+              <input
+                formControlName="fecha"
+                id="fecha"
+                type="date"
+                class="form-control">
+              <div *ngIf="f.fecha.touched && f.fecha.invalid" class="alert alert-danger">
+                  <div *ngIf="f.fecha.errors.required">*requerido.</div>
+              </div>
+            </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6 ">
+            <label for="title">Hora Inicio:</label>
+            <input
+              formControlName="hora_inicio"
+              id="hora_inicio"
+              type="time"
+              class="form-control">
+            <div *ngIf="f.hora_inicio.touched && f.hora_inicio.invalid" class="alert alert-danger">
+                <div *ngIf="f.hora_inicio.errors.required">*requerido.</div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-md-6 ">
+            <label for="title">Hora Final:</label>
+            <input
+              formControlName="hora_final"
+              id="hora_final"
+              type="time"
+              class="form-control">
+            <div *ngIf="f.hora_final.touched && f.hora_final.invalid" class="alert alert-danger">
+                <div *ngIf="f.hora_final.errors.required">*requerido.</div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Enviar</button>
+    </form>
+</div>

@@ -1,0 +1,74 @@
+<section>
+
+  <div class="d-flex justify-content-between">
+    <h4>Listar Horarios</h4>
+    <a routerLink="/horarios/create" class="btn btn-success">Crear Nuevo Horario</a>
+  </div>
+
+  <br>
+  <div class="form-group row">
+    <div class="col-md-6 ">
+      <label for="historial">Historico:</label>
+      <select
+      [value]="historico"
+      (change)="cambiarEstadoHistorico($event.target.value)"
+        id="historial"
+        class="form-control">
+          <option value="0">NO</option>
+          <option value="1">SI</option>
+
+      </select>
+
+    </div>
+  </div>
+  <table class="table ">
+    <tr>
+      <th>ID</th>
+      <th>Nombre Clase</th>
+      <th>Fecha</th>
+      <th>Hora Inicio</th>
+      <th>Hora Final</th>
+
+      <th width="220px">Acciones</th>
+    </tr>
+    <tr *ngFor="let dato of datos">
+      <td>{{ dato.id }}</td>
+      <td>{{ dato.clase.nombre }}</td>
+      <td>{{ dato.fecha }}</td>
+      <td>{{ dato.hora_inicio }}</td>
+      <td>{{ dato.hora_final }}</td>
+      <td>
+        <a href="#" [routerLink]="['/horarios/', 'edit', dato.id  ]" class="btn btn-primary">Editar</a>
+        <button type="button" (click)="deleteHorario(dato.id)" href="javascript:void(0)" class="btn btn-danger">Borrar</button>
+      </td>
+    </tr>
+  </table>
+
+  <nav aria-label="Page navigation">
+    <ul class="pagination">
+      <li class="page-item" [class.disabled]="currentPage === 1">
+        <a class="page-link" href="javascript:void(0)" (click)="cambiarPagina(currentPage - 1,historico)" aria-label="Previous">
+          &laquo; Previous
+        </a>
+      </li>
+      <ng-container *ngFor="let link of filteredLinks">
+        <ng-container *ngIf="link.label !== 'Next &raquo;' && link.label !== '&laquo; Previous'">
+          <li class="page-item" [class.active]="link.active">
+            <a class="page-link" href="javascript:void(0)" (click)="cambiarPagina(link.label,historico)">
+              {{ link.label }}
+            </a>
+          </li>
+        </ng-container>
+      </ng-container>
+      <li class="page-item" [class.disabled]="currentPage === totalPages">
+        <a class="page-link" href="javascript:void(0)" (click)="cambiarPagina(currentPage + 1,historico)" aria-label="Next">
+          Next &raquo;
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+
+
+
+</section>
